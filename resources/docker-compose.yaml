@@ -1,0 +1,24 @@
+services:
+  mysql:
+    image: mariadb:10.5
+    container_name: fivem-mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: fivem_garage
+      MYSQL_USER: fivem_user
+      MYSQL_PASSWORD: fivem_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+     # - ./my.cnf:/etc/mysql/my.cnf
+    networks:
+      - fivem_network
+
+volumes:
+  mysql_data:
+
+networks:
+  fivem_network:
+    driver: bridge
