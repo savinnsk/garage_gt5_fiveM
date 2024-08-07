@@ -5,14 +5,18 @@ author 'Seu Nome'
 description 'Sistema de Garagem para FiveM'
 version '1.0.0'
 
-server_scripts {
-    'dist/server/*.js'
-}
 
-client_scripts {
-    'dist/client/*.js'
-}
+lua54 'yes'
 
-dependencies {
-    'mysql-async'
+-- ui_page './app/build/index.html'
+
+ui_page 'web/build/index.html'
+
+
+client_script 'script.lua'
+
+
+files {
+    'app/build/index.html',
+    'app/build/**/*'
 }

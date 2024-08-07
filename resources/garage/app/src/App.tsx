@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
+import './App.css'; // Seu arquivo de estilo
 
-const App: React.FC = () => {
+function App() {
     useEffect(() => {
+        // Função para ouvir mensagens NUI
         const handleMessage = (event: MessageEvent) => {
-            const data = event.data;
-            if (data.type === 'openGarage') {
-                // Exibir a interface da garagem
-                console.log('Open garage UI');
+            if (event.data.type === 'openGarage') {
+                console.log('Mensagem NUI recebida: openGarage');
+                const garageUI = document.getElementById('garageUI');
+                if (garageUI) {
+                    garageUI.style.display = 'block';
+                }
             }
         };
 
@@ -18,23 +22,26 @@ const App: React.FC = () => {
     }, []);
 
     const closeUI = () => {
-        fetch('https://my-garage-app/closeUI', {
+        const garageUI = document.getElementById('garageUI');
+        if (garageUI) {
+            garageUI.style.display = 'none';
+        }
+        fetch(`https://${(window as any).GetParentResourceName()}/closeUI`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({})
-        });
+            body: JSON.stringify({}),
+        }).then(() => console.log('UI Fechada'));
     };
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <h1>Garage</h1>
-                <button onClick={closeUI}>Close</button>
-            </header>
+        <div id="garageUI" style={{ display: 'none' }}>
+            <h1>Garagem</h1>
+            <button onClick={closeUI}>Fechar</button>
+            {/* Adicione aqui o resto da sua interface de usuário */}
         </div>
     );
-};
+}
 
-export default App;
+export default App;

@@ -1,6 +1,5 @@
-console.log('Script do cliente carregado.');
 
-// Mostra a interface de usuário do React quando o jogador usa o comando 'garage'
+
 RegisterCommand('garage', () => {
     console.log('Comando /garage chamado.');
     SetNuiFocus(true, true);
